@@ -359,6 +359,7 @@ class foreman (
   $preseed_file             = params_lookup( 'preseed_file' ),
   $template_database        = params_lookup( 'template_database' ),
   $template_enc             = params_lookup( 'template_enc' ),
+  $template_push_facts      = params_lookup( 'template_push_facts' ),
   $template_preseed         = params_lookup( 'template_preseed' ),
   $template_passenger       = params_lookup( 'template_passenger' ),
   $template_reports         = params_lookup( 'template_reports' ),
@@ -510,6 +511,11 @@ class foreman (
 
   $manage_file_enc_content = $foreman::template_enc ? {
     ''        => template('foreman/external_node.rb.erb'),
+    default   => template($foreman::template_enc),
+  }
+
+  $manage_file_push_facts_content = $foreman::template_push_facts ? {
+    ''        => template('foreman/push_facts.rb.erb'),
     default   => template($foreman::template_enc),
   }
 
